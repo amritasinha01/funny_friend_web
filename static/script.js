@@ -3,7 +3,7 @@ let chatHistory = [];  // 🧠 Chat memory
 function sendToBackend() {
   const text = document.getElementById('textInput').value;
 
-  fetch('https://funnyfriend.onrender.com/talk', {
+  fetch('https://funny-friend-web.onrender.com/talk', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ text })
@@ -27,7 +27,7 @@ function sendToBackend() {
 
 async function getLiveJoke() {
   try {
-    const resp = await fetch('https://funnyfriend.onrender.com/live_joke');
+    const resp = await fetch('https://funny-friend-web.onrender.com/live_joke');
     const data = await resp.json();
 
     const joke = data.joke;
@@ -43,7 +43,7 @@ async function getLiveJoke() {
 
 async function getLiveNews() {
   try {
-    const resp = await fetch('https://funnyfriend.onrender.com/live_news');
+    const resp = await fetch('https://funny-friend-web.onrender.com/live_news');
     const data = await resp.json();
 
     const box = document.getElementById('responseBox');
@@ -147,7 +147,7 @@ function sendLLMRequest(text) {
   // Add user message to history
   chatHistory.push({ role: "user", content: text });
 
-  fetch("https://funnyfriend.onrender.com/llm_chat", {
+  fetch("https://funny-friend-web.onrender.com/llm_chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ messages: chatHistory })
