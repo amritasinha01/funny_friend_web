@@ -1,7 +1,10 @@
+import os
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from emotion_model import load_emotion_model
 import json, random, requests
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)          # 🔄 Yeh line sabse pehle aani chahiye
 CORS(app)                      # ✅ Enable CORS
@@ -12,6 +15,8 @@ model, vectorizer = load_emotion_model()
 # Load local jokes with emotions
 with open('jokes.json', 'r', encoding='utf-8') as f:
     jokes = json.load(f)
+
+
 
 @app.route('/')
 def home():
@@ -49,7 +54,7 @@ def live_joke():
     return jsonify(joke=joke)
 
 # 📰 Route to fetch live news
-NEWS_API_KEY = 'pub_6e56cc33846848388d95a90d15af68ff'
+NEWS_API_KEY = os.environ.get("NEWS_API_KEY")
 
 @app.route('/live_news', methods=['GET'])
 def live_news():
@@ -73,7 +78,7 @@ def live_news():
     return jsonify(articles=items)
 
 # 🧠 LLM Chat Integration with Context (OpenRouter)
-OPENROUTER_API_KEY = "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"  # Replace with your key
+OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
 
 @app.route('/llm_chat', methods=['POST'])
 def llm_chat():
@@ -139,5 +144,7 @@ def llm_chat():
 # ------------------------------------------------------------------ #
 
 # 🚀 Run the Flask backend
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)

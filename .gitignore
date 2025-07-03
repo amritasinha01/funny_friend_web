@@ -3,13 +3,13 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
-*.pkl
+# .gitignore
 *.log
 *.db
 *.sqlite3
 .env
 venv/
-.env/
+.env
 Lib/
 Scripts/
 pyvenv.cfg
